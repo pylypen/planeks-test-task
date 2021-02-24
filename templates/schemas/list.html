@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h2 class="float-left">Data Schemas</h2>
+    <a href="{% url 'schema_create' %}" type="button" class="btn btn-success float-right">New Schema</a>
+</div>
+<table class="table table-hover table-bordered caption-top">
+    <caption class="">
+
+    </caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Modified</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td><a href="{% url 'schema_view' 1 %}">Customers</a></td>
+        <td>2020-03-16</td>
+        <td>
+            <a href="{% url 'schema_edit' 1 %}">Edit schema</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="javascript:;">Delete</a>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">1</th>
+        <td><a href="{% url 'schema_view' 1 %}">Customers</a></td>
+        <td>2020-03-16</td>
+        <td>
+            <a href="{% url 'schema_edit' 1 %}">Edit schema</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="javascript:;">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+{% endblock %}
