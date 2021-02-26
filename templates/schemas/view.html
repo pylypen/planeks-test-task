@@ -3,7 +3,12 @@
 {% block content %}
 <div>
     <h2 class="float-left">Data Sets</h2>
-    <a href="{% url 'schema_list' %}" type="button" class="btn btn-success float-right">Generate Data</a>
+
+    <form action="{% url 'schema_view' id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success float-right">Generate Data</button>
+    </form>
+
 </div>
 <table class="table table-hover table-bordered caption-top">
     <caption class="">
@@ -18,25 +23,25 @@
     </tr>
     </thead>
     <tbody>
+    {% if datasets %}
+    {% for d in datasets %}
     <tr>
-        <th scope="row">1</th>
-        <td>2020-03-16</td>
+        <th scope="row">{{ d.id }}</th>
+        <td>{{ d.created }}</td>
         <td>
-            <span class="badge badge-success">Ready</span>
-        </td>
-        <td>
-            <a href="javascript:;">Download</a>
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">1</th>
-        <td>2020-03-16</td>
-        <td>
-            <span class="badge badge-secondary">Processing</span>
+            {% if d.status_type == 'PR' %}
+                <span class="badge badge-secondary">Processing</span>
+            {% else %}
+                <span class="badge badge-success">Ready</span>
+            {% endif %}
         </td>
         <td>
         </td>
     </tr>
+    {% endfor %}
+    {% else %}
+        <caption>No data sets yet!</caption>
+    {% endif %}
     </tbody>
 </table>
 {% endblock %}

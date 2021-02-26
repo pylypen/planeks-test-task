@@ -75,4 +75,4 @@ class Dataset(models.Model):
     created = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
-        return self.created
+        return self.status_type
