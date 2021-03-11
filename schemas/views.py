@@ -1,8 +1,12 @@
+import json
+
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .models import Schema, Dataset
+from django.http import JsonResponse
+from django.core.serializers import serialize
+from .models import Schema, Dataset, ColumnTypes
 from .forms import SchemaForm
 from django.views.generic import View, TemplateView
 
@@ -63,6 +67,14 @@ class SchemaView(View):
         dataset.save()
 
         return redirect('schema_view', id)
+
+
+@csrf_exempt
+def get_columns_types(request):
+    types = ColumnTypes.objects.all()
+    data = serialize("json", types, fields=('id', 'name'))
+
+    return JsonResponse(json.loads(data), safe=False)
 
 
 @login_required
